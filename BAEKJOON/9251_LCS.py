@@ -18,7 +18,6 @@ print(max(dp[-1]))
 
 
 '''Test case
-
 AGGTAB
 GXTXAYB
 '''
