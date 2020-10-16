@@ -1,5 +1,5 @@
-BFS와 DFS에 대해 더 공부해야겠다...
-Solved X
+# BFS와 DFS에 대해 더 공부해야겠다...
+# Solved X
 '''
 import sys
 sys.stdin = open("input.txt","rt")
