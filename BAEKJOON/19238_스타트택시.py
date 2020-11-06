@@ -74,86 +74,90 @@ print(fuel)
 # 두번째시도,,, 왜이렇게 풀릴듯 하면서 안풀리는지 모르겠다.
 '''
 import sys
-read=sys.stdin.readline
+read = sys.stdin.readline
 from collections import deque
+n, m, fuel = map(int, read().split())
 
-n,m,fuel=map(int,read().split())
-
-MAP=list(list(map(int,read().split())) for _ in range(n))
-a,b=list(map(int,read().split()))
-start=[a-1,b-1]
-pas=dict()
-checkpas=dict()
+MAP = list(list(map(int, read().split())) for _ in range(n))
+a, b = list(map(int, read().split()))
+start = [a-1, b-1]
+pas = dict()
+checkpas = dict()
 for _ in range(m):
-    a,b,c,d=map(int,read().split())
-    pas[(a-1,b-1)]=(c-1,d-1)
-    checkpas[(a-1,b-1)]=True
+    a, b, c, d = map(int, read().split())
+    pas[(a-1, b-1)] = (c-1, d-1)
+    checkpas[(a-1, b-1)] = True
 
-dx=[1,0,0,-1]
-dy=[0,1,-1,0]
+dx = [1, 0, 0, -1]
+dy = [0, 1, -1, 0]
+
 
 def findPAS(start):
-    check=list(list(True for _ in range(n)) for _ in range(n))
-    point=deque([start])
-    far=0
-    same_far=[]
+    check = list(list(True for _ in range(n)) for _ in range(n))
+    point = deque([start])
+    far = 0
+    same_far = []
     while point:
-        term=len(point)
+        term = len(point)
         for _ in range(term):
-            a,b=point.popleft()
-            check[a][b]=False
-            if (a,b) in pas and checkpas[(a,b)]:
-                same_far.append([far, (a,b)])
-            for x,y in zip(dx,dy):
-                ax,by=a+x,b+y
-                if 0<=ax<n and 0<=by<n and MAP[ax][by]==0 and check[ax][by]:
-                    point.append([ax,by])
-        far+=1
-        if far>fuel:break
+            a, b = point.popleft()
+            check[a][b] = False
+            if (a, b) in pas and checkpas[(a, b)]:
+                same_far.append([far, (a, b)])
+            for x, y in zip(dx, dy):
+                ax, by = a+x, b+y
+                if 0 <= ax < n and 0 <= by < n and MAP[ax][by] == 0 and check[ax][by]:
+                    point.append([ax, by])
+        far += 1
+        if far > fuel:
+            break
         if same_far:
-            same_far.sort(key=lambda x : (x[1][0],x[1][1]))
+            same_far.sort(key=lambda x: (x[1][0], x[1][1]))
             return same_far[0]
 
     print(-1)
     sys.exit()
     return
 
-def takePAS(a,b):
-    check=list(list(True for _ in range(n)) for _ in range(n))
-    c,d=pas[(a,b)]
-    point=deque([[a,b]])
-    far=0
+
+def takePAS(a, b):
+    check = list(list(True for _ in range(n)) for _ in range(n))
+    c, d = pas[(a, b)]
+    point = deque([[a, b]])
+    far = 0
     while point:
-        term=len(point)
+        term = len(point)
         for _ in range(term):
-            a,b=point.popleft()
-            check[a][b]=False
-            if c==a and d==b:
+            a, b = point.popleft()
+            check[a][b] = False
+            if c == a and d == b:
                 return far
-            for x,y in zip(dx,dy):
-                ax,by=a+x,b+y
-                if 0<=ax<n and 0<=by<n and MAP[ax][by]==0 and check[ax][by]:
-                    point.append([ax,by])
-        far+=1
-        if len_From+far>fuel: break
+            for x, y in zip(dx, dy):
+                ax, by = a+x, b+y
+                if 0 <= ax < n and 0 <= by < n and MAP[ax][by] == 0 and check[ax][by]:
+                    point.append([ax, by])
+        far += 1
+        if len_From+far > fuel:
+            break
     print(-1)
     sys.exit()
     return
 
-point=0
+
+point = 0
 
 for _ in range(m):
-    len_From,point=findPAS(start)
-    len_To=takePAS(point[0],point[1])
+    len_From, point = findPAS(start)
+    len_To = takePAS(point[0], point[1])
 
-    if fuel<len_From+len_To:
+    if fuel < len_From+len_To:
         print(-1)
         sys.exit()
 
-    fuel=fuel-len_From+len_To
+    fuel = fuel-len_From+len_To
 
-    start=pas[point[0],point[1]]
-    checkpas[(point[0],point[1])]=False
+    start = pas[point[0], point[1]]
+    checkpas[(point[0], point[1])] = False
 
 print(fuel)
 '''
