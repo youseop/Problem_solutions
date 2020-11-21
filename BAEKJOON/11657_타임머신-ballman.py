@@ -21,6 +21,6 @@ for node in range(n):
                 if node == n-1:
                     print(-1)
                     sys.exit()
-print(dp)
+
 for d in dp[2:]:
     print(d if d != inf else -1)
