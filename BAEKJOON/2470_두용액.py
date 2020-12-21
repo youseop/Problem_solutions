@@ -1,3 +1,4 @@
+######################투 포인터#######################
 import sys
 read=sys.stdin.readline
 
@@ -22,3 +23,22 @@ while l < r:
         l += 1
         
 print(*answer[1:])
+
+######################절대값 기준 정렬#######################
+import sys
+read=sys.stdin.readline
+
+n = int(read())
+liq = sorted(map(int,read().split()), key = lambda x : abs(x))
+
+answer = sys.maxsize
+two_liq = [0,0]
+
+for i in range(1,n):
+    tmp = abs(liq[i]+liq[i-1])
+    if answer > tmp:
+        answer = tmp
+        two_liq = [liq[i-1],liq[i]]
+
+print(*sorted(two_liq))
+

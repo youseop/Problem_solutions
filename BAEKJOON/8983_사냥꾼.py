@@ -1,5 +1,4 @@
 import sys
-sys.stdin = open('text.txt','rt')
 read=sys.stdin.readline
 
 def bin_search(x, w):
