@@ -1,3 +1,85 @@
+##한 달 만에 드디어 풀었습니다 ㅠㅠ##
+import sys
+read=sys.stdin.readline
+from collections import deque
+
+dx=[-1,0,0,1]
+dy=[0,-1,1,0]
+
+n,m,fuel = map(int,read().split())
+MAP=list(list(map(int,read().split())) for _ in range(n))
+start = list(map(int,read().split()))
+start[0],start[1]=start[0]-1,start[1]-1
+get=list(list([] for _ in range(n)) for _ in range(n))
+for _ in range(m):
+    a,b,c,d=map(int,read().split())
+    get[a-1][b-1].append([c-1,d-1])
+
+def find_pas(start):
+    global fuel
+    if get[start[0]][start[1]]:
+        return ([start[0],start[1]],get[start[0]][start[1]].pop())
+
+    point=deque([start])
+    check=list(list(True for _ in range(n)) for _ in range(n))
+    check[start[0]][start[1]]=False
+    while point:
+        point = deque(sorted(point))
+        for _ in range(len(point)):
+            a,b=point.popleft()
+            ##여기서 체크해줘야 한다!!!!
+            if get[a][b]:
+                return ([a,b],get[a][b].pop())
+            for x,y in zip(dx,dy):
+                ax,by=a+x,b+y
+                if 0<=ax<n and 0<=by<n and MAP[ax][by]==0 and check[ax][by]:
+                    check[ax][by]=False
+                    point.append([ax,by])
+        fuel-=1
+        if fuel < 0:
+            return 0, 0
+    return 0, 0
+
+def go_pas(start,end):
+    global fuel
+    if start == end:
+        return
+    point=deque([start])
+    check=list(list(True for _ in range(n)) for _ in range(n))
+    check[start[0]][start[1]]=False
+    far=0
+    while point:
+        for _ in range(len(point)):
+            a,b=point.popleft()
+            for x,y in zip(dx,dy):
+                ax,by=a+x,b+y
+                if 0<=ax<n and 0<=by<n and MAP[ax][by]==0 and check[ax][by]:
+                    check[ax][by]=False
+                    point.append([ax,by])
+                    if [ax,by]==end:
+                        fuel += (far+1)
+                        return 1
+        far+=1
+        if far >= fuel:
+            return 0
+    return 0
+
+for _ in range(m):
+    f, t=find_pas(start)
+    if f:
+        if go_pas(f,t) == 0:
+            print(-1)
+            break
+    else:
+        print(-1)
+        break
+    start = t
+else:
+    print(fuel)
+
+
+
+
 # BFS와 DFS에 대해 더 공부해야겠다...
 # Solved X
 '''

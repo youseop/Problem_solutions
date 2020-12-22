@@ -6,7 +6,7 @@ dx = [-1,0,0,1]
 dy = [0,-1,1,0]
 
 def next_fish(start):
-    far = 0
+    time = 0
     check = list(list(True for _ in range(n)) for _ in range(n))
     check[start[0]][start[1]] = False
     point = deque([start])
@@ -16,18 +16,18 @@ def next_fish(start):
             a,b = point.popleft()
             if 0<MAP[a][b]<shark_size: 
                 MAP[a][b]=0
-                return [a,b], far
+                return [a,b], time
             for x,y in zip(dx,dy):
                 ax, by = a+x, b+y
                 if 0<=ax<n and 0<=by<n and MAP[ax][by] <= shark_size and check[ax][by]:
                     point.append([ax,by])
                     check[ax][by] = False
-        far += 1
+        time += 1
     return 0, 0
 
 n = int(read())
 MAP = list(list(map(int,read().split())) for _ in range(n))
-time = 0
+total_time = 0
 shark_size = 2
 shark_exp = 0
 for i in range(n):
@@ -37,8 +37,8 @@ for i in range(n):
             MAP[i][j] = 0
 
 while True:
-    start, tmp = next_fish(start)
-    time += tmp
+    start, time = next_fish(start)
+    total_time += time
     if start:
         shark_exp += 1
         if shark_exp == shark_size:
@@ -46,6 +46,6 @@ while True:
             shark_exp = 0
     else: 
         break
-print(time)
+print(total_time)
 
 
