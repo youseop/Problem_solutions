@@ -6,7 +6,6 @@ n = int(read())
 h_o = list(sorted(map(int,read().split())) for _ in range(n))
 h_o.sort(key = lambda x : -x[1])
 length = int(read())
-#print(h_o)
 start_p = sorted(set(x[0] for x in h_o))
 
 heap = []
@@ -20,7 +19,6 @@ for start in start_p:
     while heap and heap[0][0] < start:
         hq.heappop(heap)
         cnt -= 1
-    #print(start, heap)
-    answer = max( cnt, answer)
+    answer = max(cnt, answer)
 
 print(answer)
