@@ -4,6 +4,7 @@ read=sys.stdin.readline
 
 n,m = map(int,read().split())
 board = list(list(read().strip()) for _ in range(n))
+
 def BFS():
     cnt = 0
     point = set()
