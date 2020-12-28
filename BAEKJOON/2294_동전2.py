@@ -13,7 +13,7 @@ for i in num:
 
 cnt = 1
 while point:
-    ada:
+    for _ in range(len(point)):
         index, sum_num = point.popleft()
         for i in range(index, n):
             next_num = sum_num+num[i] 
