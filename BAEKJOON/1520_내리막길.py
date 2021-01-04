@@ -63,3 +63,30 @@ for i in range(1,m):
         #print('save:',save)
 
 print(dp[-1][-1])'''
+
+
+
+##############2021 - 01 - 04######################재시도
+'''
+import sys
+sys.stdin = open("text.txt","rt")
+read=sys.stdin.readline
+sys.setrecursionlimit(10000)
+n,m = map(int,read().split())
+MAP = list(list(map(int,read().split())) for _ in range(n))
+dp = list(list(-1 for _ in range(m)) for _ in range(n))
+dp[0][0] = 1
+
+def dfs(a,b):
+    if dp[a][b] != -1:
+        return dp[a][b]
+    dp[a][b] = 0
+    for x,y in [(-1,0),(1,0),(0,-1),(0,1)]:
+        ax,by = a+x,b+y
+        if 0<=ax<n and 0<=by<m and MAP[a][b]<MAP[ax][by]:
+            dp[a][b] += dfs(ax,by)
+                
+    return dp[a][b]
+
+print(dfs(n-1,m-1))
+'''
