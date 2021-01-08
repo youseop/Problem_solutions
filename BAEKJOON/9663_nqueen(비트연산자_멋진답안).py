@@ -10,7 +10,7 @@ def search(col, ld, rd, n):
         bit = slots & -slots
         count += search(col | bit, (ld | bit) >> 1, (rd | bit) << 1, n)
         slots -= bit
-
+      
     return count
 
 def solution(n):
