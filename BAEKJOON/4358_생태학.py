@@ -1,5 +1,4 @@
 import sys
-sys.stdin = open("text.txt","rt")
 read=sys.stdin.readline
 
 class Node(object):
