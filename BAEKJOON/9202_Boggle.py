@@ -8,7 +8,7 @@ class Node(object):
         self.data = data
         self.child = {}
 
-class Trie(object):
+class Trie(object): 
     def __init__(self):
         self.head = Node(None)
 
