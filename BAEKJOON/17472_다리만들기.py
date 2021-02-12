@@ -95,14 +95,3 @@ if connect_cnt == num-3:
     print(answer)
 else:
     print(-1)
-
-#print(num)
-#print(connect_cnt)
-
-#for b in bridge:
-#    print(b)
-
-#print()
-
-#for M in MAP:
-#    print(M)
