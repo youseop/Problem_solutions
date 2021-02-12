@@ -1,5 +1,7 @@
 def solution(n, t, m, timetable):
-    answer = ''
+    def readable(time):
+        return str(time//600)+str((time%600)//60)+':'+str((time%60)//10)+str((time%60)%10)
+
     for i in range(len(timetable)):
         h,mi = timetable[i].split(':')
         timetable[i] = int(h)*60 + int(mi)
@@ -10,13 +12,14 @@ def solution(n, t, m, timetable):
     cru_cnt = 0 # max: m
     for time in timetable:
         full = 0
-        if time <= bus_time:
+        if time <= bus_time: 
             cru_cnt += 1
         else:
             while time>bus_time and bus_cnt <n:
                 bus_time += t
                 bus_cnt += 1
                 cru_cnt = 1
+
         if cru_cnt == m:
             full = 1
             cru_cnt = 0
@@ -25,15 +28,10 @@ def solution(n, t, m, timetable):
 
         if bus_cnt > n:
             break
-    if full:
+
+    if full: #버스가 가득 차면 마지막 사람보다 1분이라도 일찍 와야한다.
         tmp_time = time - 1
     else:
         tmp_time = bus_time
 
-
-    answer += str(tmp_time//600)
-    answer += str((tmp_time%600)//60)
-    answer += ':'
-    answer += str((tmp_time%60)//10)
-    answer += str((tmp_time%60)%10)
-    return answer
+    return readable(tmp_time)
