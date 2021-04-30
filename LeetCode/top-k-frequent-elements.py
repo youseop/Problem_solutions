@@ -1,3 +1,5 @@
+#import heapq
+
 class Solution(object):
     def topKFrequent(self, nums, k):
         dictionary = dict()
@@ -7,4 +9,7 @@ class Solution(object):
             else:
                 dictionary[n] += 1
         return sorted(dictionary, key=lambda x: -dictionary[x])[:k]
+        #return heapq.nlargest(k, dictionary, key=dictionary.get)
+
+
         
