@@ -1,3 +1,64 @@
+#2021.05.08
+
+import sys
+from collections import deque
+sys.stdin = open("text.txt","rt")
+read = sys.stdin.readline
+
+
+def virusSpread(check):
+    point = deque(virus)
+    cnt = 0
+    while point:
+        a,b = point.popleft()
+        cnt += 1
+        for x,y in [(1,0),(0,1),(-1,0),(0,-1)]:
+            ax,by = a+x,b+y
+            if 0<=ax<n and 0<=by<m and check[ax][by]==0:
+                point.append((ax,by))
+                check[ax][by] = 2
+    return cnt
+
+def getBiggestSafeArea():
+    maxArea = 0
+    check = list(MAP[i][:] for i in range(n))
+    infectedArea = virusSpread(check)
+
+    return n*m - wall - 3 - infectedArea
+
+
+def makeThreeWalls(cnt,a,b):
+    global safeArea
+    if cnt == 3:
+        safeArea = max(safeArea,getBiggestSafeArea())
+        return
+    for i in range(a,n):
+        for j in range(m):
+            if i == a and j <= b: 
+                continue
+            if MAP[i][j] == 0:
+                MAP[i][j] = 1
+                makeThreeWalls(cnt+1,i,j)
+                MAP[i][j] = 0
+
+
+n,m = map(int,read().split())
+MAP = list(list(map(int,read().split())) for _ in range(n))
+
+virus = []
+wall = 0
+for i in range(n):
+    for j in range(m):
+        if MAP[i][j] == 2:
+            virus.append((i,j))
+        elif MAP[i][j] == 1:
+            wall += 1
+
+safeArea = 0
+makeThreeWalls(0,0,-1)
+print(safeArea)
+
+'''
 from copy import deepcopy
 from collections import deque as dq
 import sys
@@ -65,3 +126,4 @@ def WALL(a, b, cnt):
 
 WALL(0, 0, 0)
 print(answer)
+'''
