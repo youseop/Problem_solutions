@@ -1,12 +1,7 @@
-
-from heapq import heapify, heappush, heappop
-
-def duration(x):
-    return x[1]-x[0]
+from heapq import heappush, heappop
 
 def solution(jobs):
     n = len(jobs)
-    end_time = -1
     jobs.sort(reverse = True)
     waiting = []
     end_time = 0
