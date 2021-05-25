@@ -30,3 +30,33 @@ if n == k:
 else:
     BFS()
     print('error')
+
+
+'''
+import sys
+sys.stdin = open("text.txt","rt")
+read = sys.stdin.readline
+
+from collections import deque
+
+start,end = map(int,read().split())
+max_point = max(start,end)*2
+
+point = deque([start])
+check = list(True for _ in range(max_point))
+time = 0
+while point:
+    for _ in range(len(point)):
+        prev_point = point.popleft()
+        if prev_point == end:
+            print(time)
+            exit()
+        for next_point in (prev_point-1,prev_point+1,prev_point*2):
+            if 0<=next_point<max_point and check[next_point]:
+                point.append(next_point)
+                check[next_point] = False
+
+
+    time += 1
+    
+'''
